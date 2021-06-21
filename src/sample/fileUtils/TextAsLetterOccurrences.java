@@ -1,5 +1,7 @@
 package sample.fileUtils;
 
+import sample.UIUtils.ProgressCounter;
+
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 

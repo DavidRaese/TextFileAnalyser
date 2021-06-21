@@ -1,12 +1,14 @@
 package sample;
 
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import sample.UIUtils.ProgressBarView;
+import sample.UIUtils.ProgressCounter;
+import sample.UIUtils.ProgressLabelView;
 import sample.fileUtils.*;
 
 import java.io.File;

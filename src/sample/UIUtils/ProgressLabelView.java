@@ -1,9 +1,10 @@
-package sample.fileUtils;
+package sample.UIUtils;
 
 import javafx.application.Platform;
 import javafx.scene.control.Label;
+import sample.UIUtils.ProgressObserver;
 
-public class ProgressLabelView implements ProgressObserver{
+public class ProgressLabelView implements ProgressObserver {
     Label progressLabel;
 
     public ProgressLabelView(Label progressLabel) {

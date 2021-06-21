@@ -1,4 +1,6 @@
-package sample.fileUtils;
+package sample.UIUtils;
+
+import sample.UIUtils.ProgressObserver;
 
 import java.util.ArrayList;
 

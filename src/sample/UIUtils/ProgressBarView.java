@@ -1,8 +1,8 @@
-package sample.fileUtils;
+package sample.UIUtils;
 
 import javafx.application.Platform;
-import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import sample.UIUtils.ProgressObserver;
 
 public class ProgressBarView implements ProgressObserver {
     ProgressBar progressBar;
