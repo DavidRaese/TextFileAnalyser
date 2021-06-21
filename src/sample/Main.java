@@ -10,6 +10,7 @@ import sample.fileUtils.Result;
 import sample.fileUtils.TextAsWordOccurrences;
 import sample.fileUtils.TextStorable;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class Main extends Application {
@@ -18,7 +19,9 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("Main.fxml"));
         primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 500, 450));
+        Scene scene = new Scene(root, 500, 450);
+        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
 
