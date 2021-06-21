@@ -34,17 +34,12 @@ public class Controller implements Initializable {
 
     TextAsWordOccurrences textAsWordOccurrences = new TextAsWordOccurrences();
     TextAsLetterOccurrences textAsLetterOccurrences = new TextAsLetterOccurrences();
-//    TextStorable textStorable = FileUtil.readTextFileLineByLine("./Sample.txt", textAsWordOccurrences);
-
-
 
 
     public void analyseTextFileHandler() {
 //        String userFilePath = getUserFilePath();
-//        analyseTextFile("Sample.txt", textAsWordOccurrences);
-        analyseTextFile1("Sample.txt");
-        displayResultsToTableView1();
-//        displayResultsToTableView(textAsLetterOccurrences);
+        analyseTextFile("Sample.txt", textAsLetterOccurrences);
+        displayResultsToTableView(textAsLetterOccurrences);
     }
 
     private void analyseTextFile(String userFilePath, HashMapStore hashMapStore) {
@@ -56,23 +51,6 @@ public class Controller implements Initializable {
         } catch (Exception err) {
             System.out.println(err);
         }
-    }
-
-    private void analyseTextFile1(String userFilePath) {
-        MyRunnable myRunnable = new MyRunnable(userFilePath, textAsWordOccurrences);
-        Thread t = new Thread(myRunnable);
-        t.start();
-        try {
-            t.join();
-        } catch (Exception err) {
-            System.out.println(err);
-        }
-    }
-
-    private void displayResultsToTableView1() {
-        ArrayList<Result> results = textAsWordOccurrences.getWordOccurrencesAsListOfResults();
-        ObservableList<Result> resultsObservable = FXCollections.observableArrayList(results);
-        table.setItems(resultsObservable);
     }
 
     private void displayResultsToTableView(HashMapStore hashMapStore) {
