@@ -2,21 +2,21 @@ package sample.fileUtils;
 
 import javafx.application.Platform;
 import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
 
-public class ProgressBarView implements ProgressObserver {
-    ProgressBar progressBar;
+public class ProgressLabelView implements ProgressObserver{
+    Label progressLabel;
 
-    public ProgressBarView(ProgressBar progressBar) {
-        this.progressBar = progressBar;
+    public ProgressLabelView(Label progressLabel) {
+        this.progressLabel = progressLabel;
     }
 
     @Override
     public void update(double d) {
+        String labelText = String.valueOf(d * 100) + "%";
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                progressBar.setProgress(d);
+                progressLabel.setText(labelText);
             }
         });
     }

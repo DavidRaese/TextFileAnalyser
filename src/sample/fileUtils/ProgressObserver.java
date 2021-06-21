@@ -1,5 +1,5 @@
 package sample.fileUtils;
 
 public interface ProgressObserver {
-    public void update(Double d);
+    public void update(double d);
 }

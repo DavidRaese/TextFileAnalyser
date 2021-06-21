@@ -26,6 +26,8 @@ public class Controller implements Initializable {
     @FXML
     private ProgressBar progressBar;
     @FXML
+    private Label progressLabel;
+    @FXML
     private TableView<Result> table;
     @FXML
     private TableColumn<Result, String> word;
@@ -35,6 +37,7 @@ public class Controller implements Initializable {
 
     File file;
     ProgressBarView progressBarView;
+    ProgressLabelView progressLabelView;
     ProgressCounter progressCounter;
     TextAsWordOccurrences textAsWordOccurrences;
     TextAsLetterOccurrences textAsLetterOccurrences;
@@ -55,7 +58,8 @@ public class Controller implements Initializable {
         } catch (Exception err) {
             System.out.println(err);
         }
-        progressBar.setProgress(1);
+        progressCounter.setProgress(1);
+        System.out.println(progressBar.getProgress());
     }
 
     private void displayResultsToTableView(HashMapStore hashMapStore) {
@@ -83,11 +87,13 @@ public class Controller implements Initializable {
         occurrences.setCellValueFactory(new PropertyValueFactory<Result, Integer>("occurrences"));
 
         file = new File("Sample.txt");
-        progressBarView = new ProgressBarView(progressBar, file.length());
-        progressCounter = new ProgressCounter();
+        progressBarView = new ProgressBarView(progressBar);
+        progressLabelView = new ProgressLabelView(progressLabel);
+        progressCounter = new ProgressCounter(file.length());
         textAsWordOccurrences = new TextAsWordOccurrences();
         textAsLetterOccurrences = new TextAsLetterOccurrences(progressCounter);
         progressCounter.attachObserver(progressBarView);
+        progressCounter.attachObserver(progressLabelView);
     }
 
 }

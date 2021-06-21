@@ -3,24 +3,27 @@ package sample.fileUtils;
 import java.util.ArrayList;
 
 public class ProgressCounter {
-    Double progress;
+    double relativeProgress;
+    double totalProgress; // exp. total size of file
     ArrayList<ProgressObserver> progressObservers = new ArrayList<>();
 
-    public ProgressCounter() {
-        this.progress = 0.00;
+    public ProgressCounter(double totalProgress) {
+        this.relativeProgress = 0.00;
+        this.totalProgress = totalProgress;
     }
 
-    public ProgressCounter(Double progress) {
-        this.progress = progress;
-    }
 
     public Double getProgress() {
-        return progress;
+        return relativeProgress;
     }
 
-    public void setProgress(Double progress) {
-        this.progress = progress;
+    public void setProgress(double progress) {
+        this.relativeProgress = progress;
         informObservers();
+    }
+
+    public void setRelativeProgressViaCalculation(double d) {
+        setProgress(d / totalProgress);
     }
 
     public void attachObserver(ProgressObserver progressObserver) {
