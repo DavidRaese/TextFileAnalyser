@@ -42,13 +42,14 @@ public class Controller implements Initializable {
     ProgressLabelView progressLabelView;
     ProgressCounter progressCounter;
     TextAsWordOccurrences textAsWordOccurrences;
+    TextAsWordOccurrencesSlow textAsWordOccurrencesSlow;
     TextAsLetterOccurrences textAsLetterOccurrences;
 
 
     public void analyseTextFileHandler() {
 //        String userFilePath = getUserFilePath();
-        analyseTextFile("Sample.txt", textAsLetterOccurrences);
-        displayResultsToTableView(textAsLetterOccurrences);
+        analyseTextFile("Sample.txt", textAsWordOccurrencesSlow);
+        displayResultsToTableView(textAsWordOccurrencesSlow);
     }
 
     private void analyseTextFile(String userFilePath, HashMapStore hashMapStore) {
@@ -93,6 +94,7 @@ public class Controller implements Initializable {
         progressLabelView = new ProgressLabelView(progressLabel);
         progressCounter = new ProgressCounter(file.length());
         textAsWordOccurrences = new TextAsWordOccurrences();
+        textAsWordOccurrencesSlow = new TextAsWordOccurrencesSlow(300);
         textAsLetterOccurrences = new TextAsLetterOccurrences(progressCounter);
         progressCounter.attachObserver(progressBarView);
         progressCounter.attachObserver(progressLabelView);
