@@ -52,7 +52,7 @@
       </AnchorPane>
       <AnchorPane fx:id="resultsContainer" prefHeight="249.0" prefWidth="552.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <children>
-            <ProgressBar fx:id="progressBar" layoutX="57.0" layoutY="14.0" prefWidth="200.0" progress="0.0" AnchorPane.bottomAnchor="220.0" AnchorPane.topAnchor="10.0" />
+            <ProgressBar fx:id="progressBar" layoutX="57.0" layoutY="14.0" prefHeight="18.0" prefWidth="149.0" progress="0.0" AnchorPane.bottomAnchor="220.0" AnchorPane.topAnchor="10.0" />
             <TableView fx:id="table" layoutX="58.0" layoutY="49.0" prefHeight="172.0" prefWidth="402.0">
               <columns>
                 <TableColumn fx:id="word" prefWidth="75.0" text="Word" />
@@ -60,6 +60,7 @@
               </columns>
             </TableView>
             <Button fx:id="stopBtn" layoutX="402.0" layoutY="7.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="Stop" />
+            <Label fx:id="progressLabel" layoutX="221.0" layoutY="11.0" text="0%" />
          </children>
       </AnchorPane>
    </children>

@@ -1,14 +1,17 @@
 package sample;
 
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import sample.UIUtils.ProgressBarView;
+import sample.UIUtils.ProgressCounter;
+import sample.UIUtils.ProgressLabelView;
 import sample.fileUtils.*;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -25,6 +28,8 @@ public class Controller implements Initializable {
     @FXML
     private ProgressBar progressBar;
     @FXML
+    private Label progressLabel;
+    @FXML
     private TableView<Result> table;
     @FXML
     private TableColumn<Result, String> word;
@@ -32,8 +37,12 @@ public class Controller implements Initializable {
     private TableColumn<Result, Integer> occurrences;
 
 
-    TextAsWordOccurrences textAsWordOccurrences = new TextAsWordOccurrences();
-    TextAsLetterOccurrences textAsLetterOccurrences = new TextAsLetterOccurrences();
+    File file;
+    ProgressBarView progressBarView;
+    ProgressLabelView progressLabelView;
+    ProgressCounter progressCounter;
+    TextAsWordOccurrences textAsWordOccurrences;
+    TextAsLetterOccurrences textAsLetterOccurrences;
 
 
     public void analyseTextFileHandler() {
@@ -51,6 +60,8 @@ public class Controller implements Initializable {
         } catch (Exception err) {
             System.out.println(err);
         }
+        progressCounter.setProgress(1);
+        System.out.println(progressBar.getProgress());
     }
 
     private void displayResultsToTableView(HashMapStore hashMapStore) {
@@ -76,6 +87,15 @@ public class Controller implements Initializable {
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         word.setCellValueFactory(new PropertyValueFactory<Result, String>("word"));
         occurrences.setCellValueFactory(new PropertyValueFactory<Result, Integer>("occurrences"));
+
+        file = new File("Sample.txt");
+        progressBarView = new ProgressBarView(progressBar);
+        progressLabelView = new ProgressLabelView(progressLabel);
+        progressCounter = new ProgressCounter(file.length());
+        textAsWordOccurrences = new TextAsWordOccurrences();
+        textAsLetterOccurrences = new TextAsLetterOccurrences(progressCounter);
+        progressCounter.attachObserver(progressBarView);
+        progressCounter.attachObserver(progressLabelView);
     }
 
 }
