@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import sample.fileUtils.*;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -32,8 +33,11 @@ public class Controller implements Initializable {
     private TableColumn<Result, Integer> occurrences;
 
 
-    TextAsWordOccurrences textAsWordOccurrences = new TextAsWordOccurrences();
-    TextAsLetterOccurrences textAsLetterOccurrences = new TextAsLetterOccurrences();
+    File file;
+    ProgressBarView progressBarView;
+    ProgressCounter progressCounter;
+    TextAsWordOccurrences textAsWordOccurrences;
+    TextAsLetterOccurrences textAsLetterOccurrences;
 
 
     public void analyseTextFileHandler() {
@@ -51,6 +55,7 @@ public class Controller implements Initializable {
         } catch (Exception err) {
             System.out.println(err);
         }
+        progressBar.setProgress(1);
     }
 
     private void displayResultsToTableView(HashMapStore hashMapStore) {
@@ -76,6 +81,13 @@ public class Controller implements Initializable {
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         word.setCellValueFactory(new PropertyValueFactory<Result, String>("word"));
         occurrences.setCellValueFactory(new PropertyValueFactory<Result, Integer>("occurrences"));
+
+        file = new File("Sample.txt");
+        progressBarView = new ProgressBarView(progressBar, file.length());
+        progressCounter = new ProgressCounter();
+        textAsWordOccurrences = new TextAsWordOccurrences();
+        textAsLetterOccurrences = new TextAsLetterOccurrences(progressCounter);
+        progressCounter.attachObserver(progressBarView);
     }
 
 }
