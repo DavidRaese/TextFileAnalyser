@@ -1,5 +1,6 @@
 package sample.fileUtils;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -7,6 +8,7 @@ import java.util.Map;
 
 public abstract class HashMapStore implements TextStorable{
     HashMap<String, Integer> map = new HashMap();
+//    double bytesAnalyzed = 0;
 
     public void updateHashmap(String newKey) {
         if(map.containsKey(newKey)) {
@@ -32,5 +34,18 @@ public abstract class HashMapStore implements TextStorable{
         }
 
         return results;
+    }
+
+    public double getByteSizeOfLine(String line) {
+        byte[] lineAsByteArray;
+        double byteSizeOfLine = 0;
+
+        try {
+            lineAsByteArray = line.getBytes("Cp1252"); //Cp1251 stands for the ANSI encoding
+            byteSizeOfLine = lineAsByteArray.length;
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return byteSizeOfLine;
     }
 }

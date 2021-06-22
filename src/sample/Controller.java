@@ -106,7 +106,7 @@ public class Controller implements Initializable {
         progressBarView = new ProgressBarView(progressBar);
         progressLabelView = new ProgressLabelView(progressLabel);
         progressCounter = new ProgressCounter(file.length());
-        textAsWordOccurrences = new TextAsWordOccurrences();
+        textAsWordOccurrences = new TextAsWordOccurrences(progressCounter);
         textAsWordOccurrencesSlow = new TextAsWordOccurrencesSlow(300, progressCounter);
         textAsLetterOccurrences = new TextAsLetterOccurrences(progressCounter);
         progressCounter.attachObserver(progressBarView);
