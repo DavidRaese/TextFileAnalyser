@@ -1,6 +1,5 @@
 package sample;
 
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -63,10 +62,11 @@ public class Controller implements Initializable {
             userFilePath = getUserFilePath();
         } catch (FileNotFoundException exception) {
             pathLabel.setText("Sorry file dosn't exist");
+            pathLabel.getStyleClass().add("error");
             return;
         }
 
-        resetToInitialStat();
+        resetToInitialState();
 
         String chosenStrategy = getChosenAnalyzingStrategy();
 
@@ -90,9 +90,10 @@ public class Controller implements Initializable {
         FileUtil.stopParsing();
     }
 
-    private void resetToInitialStat() {
+    private void resetToInitialState() {
         progressCounter.setTotalAnalyzedSize(0);
         pathLabel.setText("Enter Path to file:");
+        pathLabel.getStyleClass().remove("error");
     }
 
     private void analyseTextFile(String userFilePath, HashMapStore hashMapStore) {
@@ -121,6 +122,7 @@ public class Controller implements Initializable {
     private String getUserFilePath() throws FileNotFoundException {
         String userFilePath = filePathTextField.getText();
         Path path = Paths.get(userFilePath);
+
         if(Files.exists(path) && Files.isRegularFile(path)) {
             return userFilePath;
         } else {
@@ -128,10 +130,6 @@ public class Controller implements Initializable {
         }
     }
 
-    private boolean pathExists(String userFilePath) throws Exception {
-        Path path = Paths.get(userFilePath);
-        return Files.exists(path);
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

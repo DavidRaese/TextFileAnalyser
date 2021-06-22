@@ -1,3 +1,7 @@
 .table-cell {
   -fx-alignment: CENTER;
 }
+
+.error {
+    -fx-text-fill: #d11d1d;
+}

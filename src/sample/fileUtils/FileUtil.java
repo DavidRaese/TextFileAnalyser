@@ -1,11 +1,12 @@
 package sample.fileUtils;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class FileUtil {
+final public class FileUtil {
+    private FileUtil() {}
+
     private static boolean stopRequested = false;
 
     public static TextStorable readTextFileLineByLine (String filePath, TextStorable textContentStorage) {
