@@ -15,7 +15,11 @@ import sample.UIUtils.ProgressLabelView;
 import sample.fileUtils.*;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -24,6 +28,8 @@ public class Controller implements Initializable {
     private Label pathLabel;
     @FXML
     private TextField filePathTextField;
+    @FXML
+    private ChoiceBox<String> choiceBox;
     @FXML
     private Button analyseBtn;
     @FXML
@@ -52,27 +58,51 @@ public class Controller implements Initializable {
 
 
     public void analyseTextFileHandler() {
-//        String userFilePath = getUserFilePath();
-        resetProgressValues();
-        analyseTextFile("Sample.txt", textAsWordOccurrencesSlow);
-        displayResultsToTableView(textAsWordOccurrencesSlow);
+        String userFilePath;
+        try{
+            userFilePath = getUserFilePath();
+        } catch (FileNotFoundException exception) {
+            pathLabel.setText("Sorry file dosn't exist");
+            return;
+        }
+
+        resetToInitialStat();
+
+        String chosenStrategy = getChosenAnalyzingStrategy();
+
+        switch (chosenStrategy) {
+            case "Word occurrences":
+                analyseTextFile(userFilePath, textAsWordOccurrences);
+                displayResultsToTableView(textAsWordOccurrences);
+                break;
+            case "Letter occurrences":
+                analyseTextFile(userFilePath, textAsLetterOccurrences);
+                displayResultsToTableView(textAsLetterOccurrences);
+                break;
+            case "Word occurrences slow":
+                analyseTextFile(userFilePath, textAsWordOccurrencesSlow);
+                displayResultsToTableView(textAsWordOccurrencesSlow);
+                break;
+        }
     }
 
     public void stopAnalyzing() {
-//        Thread waiterThread = waitingForAnalyzingToFinishThread;
-//        Thread subThread = waitingForAnalyzingToFinishRunner.getSubThread();
-//        subThread.interrupt();
-//        waiterThread.interrupt();
         FileUtil.stopParsing();
     }
 
-    private void resetProgressValues() {
+    private void resetToInitialStat() {
         progressCounter.setTotalAnalyzedSize(0);
+        pathLabel.setText("Enter Path to file:");
     }
 
     private void analyseTextFile(String userFilePath, HashMapStore hashMapStore) {
+        if(userFilePath.isBlank()) {
+            pathLabel.setText("Please enter a Path");
+            return;
+        }
+
         AnalyzeRunner analyzeRunner = new AnalyzeRunner(userFilePath, hashMapStore);
-        waitingForAnalyzingToFinishRunner = new WaitingForAnalyzingToFinishRunner(analyzeRunner, progressCounter, progressBar, textAsWordOccurrencesSlow, table);
+        waitingForAnalyzingToFinishRunner = new WaitingForAnalyzingToFinishRunner(analyzeRunner, progressCounter, progressBar, hashMapStore, table);
         waitingForAnalyzingToFinishThread = new Thread(waitingForAnalyzingToFinishRunner);
         waitingForAnalyzingToFinishThread.start();
 
@@ -84,20 +114,30 @@ public class Controller implements Initializable {
         table.setItems(resultsObservable);
     }
 
-    private String getUserFilePath() {
-        String userFilePath;
+    private String getChosenAnalyzingStrategy() {
+        return choiceBox.getValue();
+    }
 
-        try {
-            userFilePath = filePathTextField.getText();
+    private String getUserFilePath() throws FileNotFoundException {
+        String userFilePath = filePathTextField.getText();
+        Path path = Paths.get(userFilePath);
+        if(Files.exists(path) && Files.isRegularFile(path)) {
             return userFilePath;
-        } catch (Exception e) {
-            System.out.println(e);
-            return null;
+        } else {
+            throw new FileNotFoundException();
         }
+    }
+
+    private boolean pathExists(String userFilePath) throws Exception {
+        Path path = Paths.get(userFilePath);
+        return Files.exists(path);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        choiceBox.getItems().addAll("Word occurrences", "Letter occurrences", "Word occurrences slow");
+        choiceBox.setValue("Word occurrences slow");
+
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         word.setCellValueFactory(new PropertyValueFactory<Result, String>("word"));
         occurrences.setCellValueFactory(new PropertyValueFactory<Result, Integer>("occurrences"));

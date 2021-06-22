@@ -3,6 +3,8 @@ package sample.ThreadUtils;
 import sample.fileUtils.FileUtil;
 import sample.fileUtils.TextStorable;
 
+import java.io.IOException;
+
 public class AnalyzeRunner implements Runnable {
     String filePath;
     TextStorable contentStorage;

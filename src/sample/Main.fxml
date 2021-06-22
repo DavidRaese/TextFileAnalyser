@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.TableColumn?>
@@ -38,13 +39,11 @@
       </AnchorPane>
       <AnchorPane prefHeight="52.0" prefWidth="600.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <children>
-            <Button fx:id="analyseBtn" layoutX="405.0" layoutY="36.0" mnemonicParsing="false" onAction="#analyseTextFileHandler" text="Analys" />
-            <TextField fx:id="filePathTextField" layoutX="204.0" layoutY="36.0" promptText="ex. /temp/test.txt" />
-            <Label fx:id="pathLabel" layoutX="58.0" layoutY="36.0" text="Enter Path to file: ">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
+            <Button fx:id="analyseBtn" layoutX="429.0" layoutY="36.0" mnemonicParsing="false" onAction="#analyseTextFileHandler" text="Analys" />
+            <TextField fx:id="filePathTextField" layoutX="58.0" layoutY="36.0" promptText="ex. /temp/test.txt" />
+            <Label fx:id="pathLabel" layoutX="58.0" layoutY="14.0" prefHeight="17.0" prefWidth="129.0" text="Enter Path to file: " />
+            <ChoiceBox fx:id="choiceBox" layoutX="232.0" layoutY="36.0" prefHeight="25.0" prefWidth="162.0" />
+            <Label layoutX="232.0" layoutY="14.0" prefHeight="17.0" prefWidth="149.0" text="Choose analysing strategy" />
          </children>
          <GridPane.margin>
             <Insets />
@@ -53,13 +52,13 @@
       <AnchorPane fx:id="resultsContainer" prefHeight="249.0" prefWidth="552.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <children>
             <ProgressBar fx:id="progressBar" layoutX="57.0" layoutY="14.0" prefHeight="18.0" prefWidth="149.0" progress="0.0" AnchorPane.bottomAnchor="220.0" AnchorPane.topAnchor="10.0" />
-            <TableView fx:id="table" layoutX="58.0" layoutY="49.0" prefHeight="172.0" prefWidth="402.0">
+            <TableView fx:id="table" layoutX="58.0" layoutY="49.0" prefHeight="172.0" prefWidth="419.0">
               <columns>
                 <TableColumn fx:id="word" prefWidth="75.0" text="Word" />
                 <TableColumn fx:id="occurrences" prefWidth="75.0" text="Occurences" />
               </columns>
             </TableView>
-            <Button fx:id="stopBtn" layoutX="402.0" layoutY="7.0" mnemonicParsing="false" onAction="#stopAnalyzing" prefHeight="25.0" prefWidth="51.0" text="Stop" />
+            <Button fx:id="stopBtn" layoutX="428.0" layoutY="7.0" mnemonicParsing="false" onAction="#stopAnalyzing" prefHeight="25.0" prefWidth="51.0" text="Stop" />
             <Label fx:id="progressLabel" layoutX="221.0" layoutY="11.0" text="0%" />
          </children>
       </AnchorPane>

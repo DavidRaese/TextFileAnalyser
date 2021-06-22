@@ -1,13 +1,14 @@
 package sample.fileUtils;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
 public class FileUtil {
     private static boolean stopRequested = false;
 
-    public static TextStorable readTextFileLineByLine(String filePath, TextStorable textContentStorage) {
+    public static TextStorable readTextFileLineByLine (String filePath, TextStorable textContentStorage) {
         stopRequested = false;
         if(filePath == null || filePath.isBlank())
             throw new IllegalArgumentException("Passed 'String' parameter used as filename must not be 'null' or isBlank()!");

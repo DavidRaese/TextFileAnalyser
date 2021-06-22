@@ -73,7 +73,7 @@ public class WaitingForAnalyzingToFinishRunner implements Runnable {
         ArrayList<Result> results = hashMapStore.getMapEntriesAsListOfResults();
         ObservableList<Result> resultsObservable = FXCollections.observableArrayList(results);
         table.setItems(resultsObservable);
-        TableColumn occurrencesColumn = (TableColumn) table.getColumns().get(1);
+        TableColumn occurrencesColumn = (TableColumn) table.getColumns().get(1); // Index 1 stands for occurrences TableColumn
         occurrencesColumn.setSortType(TableColumn.SortType.DESCENDING);
         table.getSortOrder().add(occurrencesColumn);
     }
