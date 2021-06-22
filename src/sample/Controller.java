@@ -1,11 +1,14 @@
 package sample;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import sample.ThreadUtils.AnalyzeRunner;
+import sample.ThreadUtils.WaitingForAnalyzingToFinishRunner;
 import sample.UIUtils.ProgressBarView;
 import sample.UIUtils.ProgressCounter;
 import sample.UIUtils.ProgressLabelView;
@@ -42,26 +45,37 @@ public class Controller implements Initializable {
     ProgressLabelView progressLabelView;
     ProgressCounter progressCounter;
     TextAsWordOccurrences textAsWordOccurrences;
+    TextAsWordOccurrencesSlow textAsWordOccurrencesSlow;
     TextAsLetterOccurrences textAsLetterOccurrences;
+    WaitingForAnalyzingToFinishRunner waitingForAnalyzingToFinishRunner;
+    Thread waitingForAnalyzingToFinishThread;
 
 
     public void analyseTextFileHandler() {
 //        String userFilePath = getUserFilePath();
-        analyseTextFile("Sample.txt", textAsLetterOccurrences);
-        displayResultsToTableView(textAsLetterOccurrences);
+        resetProgressValues();
+        analyseTextFile("Sample.txt", textAsWordOccurrencesSlow);
+        displayResultsToTableView(textAsWordOccurrencesSlow);
+    }
+
+    public void stopAnalyzing() {
+//        Thread waiterThread = waitingForAnalyzingToFinishThread;
+//        Thread subThread = waitingForAnalyzingToFinishRunner.getSubThread();
+//        subThread.interrupt();
+//        waiterThread.interrupt();
+        FileUtil.stopParsing();
+    }
+
+    private void resetProgressValues() {
+        progressCounter.setTotalAnalyzedSize(0);
     }
 
     private void analyseTextFile(String userFilePath, HashMapStore hashMapStore) {
-        MyRunnable myRunnable = new MyRunnable(userFilePath, hashMapStore);
-        Thread t = new Thread(myRunnable);
-        t.start();
-        try {
-            t.join();
-        } catch (Exception err) {
-            System.out.println(err);
-        }
-        progressCounter.setProgress(1);
-        System.out.println(progressBar.getProgress());
+        AnalyzeRunner analyzeRunner = new AnalyzeRunner(userFilePath, hashMapStore);
+        waitingForAnalyzingToFinishRunner = new WaitingForAnalyzingToFinishRunner(analyzeRunner, progressCounter, progressBar, textAsWordOccurrencesSlow, table);
+        waitingForAnalyzingToFinishThread = new Thread(waitingForAnalyzingToFinishRunner);
+        waitingForAnalyzingToFinishThread.start();
+
     }
 
     private void displayResultsToTableView(HashMapStore hashMapStore) {
@@ -92,7 +106,8 @@ public class Controller implements Initializable {
         progressBarView = new ProgressBarView(progressBar);
         progressLabelView = new ProgressLabelView(progressLabel);
         progressCounter = new ProgressCounter(file.length());
-        textAsWordOccurrences = new TextAsWordOccurrences();
+        textAsWordOccurrences = new TextAsWordOccurrences(progressCounter);
+        textAsWordOccurrencesSlow = new TextAsWordOccurrencesSlow(300, progressCounter);
         textAsLetterOccurrences = new TextAsLetterOccurrences(progressCounter);
         progressCounter.attachObserver(progressBarView);
         progressCounter.attachObserver(progressLabelView);

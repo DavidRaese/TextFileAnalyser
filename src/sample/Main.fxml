@@ -59,7 +59,7 @@
                 <TableColumn fx:id="occurrences" prefWidth="75.0" text="Occurences" />
               </columns>
             </TableView>
-            <Button fx:id="stopBtn" layoutX="402.0" layoutY="7.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="Stop" />
+            <Button fx:id="stopBtn" layoutX="402.0" layoutY="7.0" mnemonicParsing="false" onAction="#stopAnalyzing" prefHeight="25.0" prefWidth="51.0" text="Stop" />
             <Label fx:id="progressLabel" layoutX="221.0" layoutY="11.0" text="0%" />
          </children>
       </AnchorPane>

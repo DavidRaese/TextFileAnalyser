@@ -13,7 +13,7 @@ public class ProgressLabelView implements ProgressObserver {
 
     @Override
     public void update(double d) {
-        String labelText = String.valueOf(d * 100) + "%";
+        String labelText = String.format("%,.1f%%", d * 100);
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
