@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import sample.UIUtils.ProgressCounter;
 import sample.fileUtils.FileUtil;
@@ -72,6 +73,9 @@ public class WaitingForAnalyzingToFinishRunner implements Runnable {
         ArrayList<Result> results = hashMapStore.getMapEntriesAsListOfResults();
         ObservableList<Result> resultsObservable = FXCollections.observableArrayList(results);
         table.setItems(resultsObservable);
+        TableColumn occurrencesColumn = (TableColumn) table.getColumns().get(1);
+        occurrencesColumn.setSortType(TableColumn.SortType.DESCENDING);
+        table.getSortOrder().add(occurrencesColumn);
     }
 
     private boolean threadAlreadyExists(String existingThreadName) {

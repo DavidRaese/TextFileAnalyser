@@ -2,11 +2,6 @@ package sample.fileUtils;
 
 import sample.UIUtils.ProgressCounter;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-
 public class TextAsWordOccurrences extends HashMapStore {
     ProgressCounter progressCounter;
 

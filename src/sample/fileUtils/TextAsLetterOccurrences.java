@@ -2,7 +2,6 @@ package sample.fileUtils;
 
 import sample.UIUtils.ProgressCounter;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 public class TextAsLetterOccurrences extends HashMapStore {

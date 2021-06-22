@@ -1,7 +1,5 @@
 package sample.UIUtils;
 
-import sample.UIUtils.ProgressObserver;
-
 import java.util.ArrayList;
 
 public class ProgressCounter {
