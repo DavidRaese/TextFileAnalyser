@@ -4,8 +4,11 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class FileUtil{
+public class FileUtil {
+    private static boolean stopRequested = false;
+
     public static TextStorable readTextFileLineByLine(String filePath, TextStorable textContentStorage) {
+        stopRequested = false;
         if(filePath == null || filePath.isBlank())
             throw new IllegalArgumentException("Passed 'String' parameter used as filename must not be 'null' or isBlank()!");
         if(textContentStorage == null)
@@ -16,7 +19,7 @@ public class FileUtil{
         try {
             bufferedReader = new BufferedReader(new FileReader(filePath));
             String line = null;
-            while ((line = bufferedReader.readLine()) != null) {
+            while (!stopRequested && (line = bufferedReader.readLine()) != null) {
                 textContentStorage.addLine(line);
             }
         } catch(IOException exception) {
@@ -34,4 +37,11 @@ public class FileUtil{
         return textContentStorage;
     }
 
+    public static void stopParsing() {
+        stopRequested = true;
+    }
+
+    public static boolean getStopRequested() {
+        return stopRequested;
+    }
 }

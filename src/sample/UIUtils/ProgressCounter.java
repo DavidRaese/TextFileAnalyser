@@ -5,13 +5,15 @@ import sample.UIUtils.ProgressObserver;
 import java.util.ArrayList;
 
 public class ProgressCounter {
+    double totalAnalyzedSize;
+    double totalSize; // exp. total size of file
     double relativeProgress;
-    double totalProgress; // exp. total size of file
     ArrayList<ProgressObserver> progressObservers = new ArrayList<>();
 
-    public ProgressCounter(double totalProgress) {
-        this.relativeProgress = 0.00;
-        this.totalProgress = totalProgress;
+    public ProgressCounter(double totalSize) {
+        this.totalAnalyzedSize = 0;
+        this.totalSize = totalSize;
+        this.relativeProgress = 0;
     }
 
 
@@ -19,13 +21,23 @@ public class ProgressCounter {
         return relativeProgress;
     }
 
-    public void setProgress(double progress) {
+    public void setRelativeProgress(double progress) {
         this.relativeProgress = progress;
         informObservers();
     }
 
-    public void setRelativeProgressViaCalculation(double d) {
-        setProgress(d / totalProgress);
+    public void setTotalAnalyzedSize(double analyzedSize) {
+        totalAnalyzedSize = analyzedSize;
+        setRelativeProgressViaCalculation();
+    }
+
+    public void addToTotalAnalyzedSize(double analyzedSize) {
+        totalAnalyzedSize += analyzedSize;
+        setRelativeProgressViaCalculation();
+    }
+
+    public void setRelativeProgressViaCalculation() {
+        setRelativeProgress(totalAnalyzedSize / totalSize);
     }
 
     public void attachObserver(ProgressObserver progressObserver) {

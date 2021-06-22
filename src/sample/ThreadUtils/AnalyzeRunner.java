@@ -1,13 +1,13 @@
-package sample;
+package sample.ThreadUtils;
 
 import sample.fileUtils.FileUtil;
 import sample.fileUtils.TextStorable;
 
-public class MyRunnable implements Runnable {
+public class AnalyzeRunner implements Runnable {
     String filePath;
     TextStorable contentStorage;
 
-    public MyRunnable(String filePath, TextStorable contentStorage) {
+    public AnalyzeRunner(String filePath, TextStorable contentStorage) {
         this.filePath = filePath;
         this.contentStorage = contentStorage;
     }

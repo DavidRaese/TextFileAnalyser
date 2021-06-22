@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 public class TextAsLetterOccurrences extends HashMapStore {
     ProgressCounter progressCounter;
-    double bytesAnalyzed = 0;
 
 
     public TextAsLetterOccurrences(ProgressCounter progressCounter) {
@@ -30,7 +29,7 @@ public class TextAsLetterOccurrences extends HashMapStore {
             if(letter.isBlank()) continue;
             updateHashmap(letter);
         }
-        progressCounter.setProgress(bytesAnalyzed += sizeOfLine);
+        progressCounter.addToTotalAnalyzedSize(sizeOfLine);
     }
 
     public void printResults() {
