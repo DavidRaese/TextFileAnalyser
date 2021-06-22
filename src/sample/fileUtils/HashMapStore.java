@@ -8,7 +8,6 @@ import java.util.Map;
 
 public abstract class HashMapStore implements TextStorable{
     HashMap<String, Integer> map = new HashMap();
-//    double bytesAnalyzed = 0;
 
     public void updateHashmap(String newKey) {
         if(map.containsKey(newKey)) {

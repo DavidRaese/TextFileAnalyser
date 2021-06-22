@@ -7,7 +7,6 @@ import java.util.ArrayList;
 public class TextAsLetterOccurrences extends HashMapStore {
     ProgressCounter progressCounter;
 
-
     public TextAsLetterOccurrences(ProgressCounter progressCounter) {
         this.progressCounter = progressCounter;
     }
