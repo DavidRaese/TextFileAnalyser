@@ -24,9 +24,9 @@ Simple Application to analyze the occurrences of pre defined Stringpatterns in a
 
   
 ## System Design
-![System Designe](./readmeImages/fileUtilsDesigne.png)
+![System Designe](./readmeImages/fileUtilsDesigne.PNG)
 
-![System Designe](./readmeImages/UIUtilsDesigne.png)
+![System Designe](./readmeImages/UIUtilsDesigne.PNG)
 
 
 ## Added Features
