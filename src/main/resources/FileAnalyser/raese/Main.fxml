@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FileAnalyser.raese.Controller">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="294.0" minWidth="0.0" prefWidth="0.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="600.0" minWidth="10.0" prefWidth="600.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="78.0" minHeight="10.0" prefHeight="55.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="156.0" minHeight="10.0" prefHeight="97.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="257.0" minHeight="10.0" prefHeight="248.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="181.0" layoutY="10.0" text="Analyse your Text File" textAlignment="CENTER">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+         </children>
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin>
+      </AnchorPane>
+      <AnchorPane prefHeight="52.0" prefWidth="600.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <children>
+            <Button fx:id="analyseBtn" layoutX="429.0" layoutY="36.0" mnemonicParsing="false" onAction="#analyseTextFileHandler" text="Analys" />
+            <TextField fx:id="filePathTextField" layoutX="58.0" layoutY="36.0" onDragDone="#handleDragFinished" onDragDropped="#handleDrop" onDragExited="#handleDragFinished" onDragOver="#handleDragOver" onMouseDragExited="#handleDragFinished" promptText="ex. /temp/test.txt" />
+            <Label fx:id="pathLabel" layoutX="58.0" layoutY="14.0" prefHeight="17.0" prefWidth="129.0" text="Enter Path to file: " />
+            <ChoiceBox fx:id="choiceBox" layoutX="232.0" layoutY="36.0" prefHeight="25.0" prefWidth="162.0" />
+            <Label layoutX="232.0" layoutY="14.0" prefHeight="17.0" prefWidth="149.0" text="Choose analysing strategy" />
+         </children>
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin>
+      </AnchorPane>
+      <AnchorPane fx:id="resultsContainer" prefHeight="249.0" prefWidth="552.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <children>
+            <ProgressBar fx:id="progressBar" layoutX="57.0" layoutY="14.0" prefHeight="18.0" prefWidth="149.0" progress="0.0" AnchorPane.bottomAnchor="220.0" AnchorPane.topAnchor="10.0" />
+            <TableView fx:id="table" layoutX="58.0" layoutY="49.0" prefHeight="172.0" prefWidth="419.0">
+              <columns>
+                <TableColumn fx:id="word" prefWidth="75.0" text="Word" />
+                <TableColumn fx:id="occurrences" prefWidth="75.0" text="Occurences" />
+              </columns>
+            </TableView>
+            <Button fx:id="stopBtn" layoutX="428.0" layoutY="7.0" mnemonicParsing="false" onAction="#stopAnalyzing" prefHeight="25.0" prefWidth="51.0" text="Stop" />
+            <Label fx:id="progressLabel" layoutX="221.0" layoutY="11.0" text="0%" />
+         </children>
+      </AnchorPane>
+   </children>
+</GridPane>

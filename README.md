@@ -22,8 +22,17 @@ Simple Application to analyze the occurrences of predefined String patterns in a
 
 
 
-  
-## System Design
+
+
+## Thoughts about the Design
+
+### Thoughts about performance
+
+In order to get high analysing performance, I decided to save the words and occurrences as key value pairs in a hash map.
+This process should have an insertion time complexity of O(1). 
+
+### Thoughts about the System Design
+
 To make the file parser logic modular, I used the strategy pattern. 
 The utility class `FileUtil` is responsible for calling the function `addLine()` of the TextStorable object for each newly read line.
 This makes it easy to develop different parsing strategies.
