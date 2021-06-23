@@ -72,9 +72,7 @@ public class Controller implements Initializable {
         List<File> files = event.getDragboard().getFiles();
         String filePathString = files.get(0).getAbsoluteFile().toString();
         filePathTextField.setText(filePathString);
-        System.out.println(filePathTextField.getStyleClass().size());
         filePathTextField.getStyleClass().remove("onDrag");
-        System.out.println(filePathTextField.getStyleClass().size());
     }
 
     public void handleDragFinished() {
