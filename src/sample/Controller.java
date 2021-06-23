@@ -6,6 +6,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.TransferMode;
 import sample.ThreadUtils.AnalyzeRunner;
 import sample.ThreadUtils.WaitingForAnalyzingToFinishRunner;
 import sample.UIUtils.ProgressBarView;
@@ -20,6 +22,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -54,6 +57,31 @@ public class Controller implements Initializable {
     TextAsLetterOccurrences textAsLetterOccurrences;
     WaitingForAnalyzingToFinishRunner waitingForAnalyzingToFinishRunner;
     Thread waitingForAnalyzingToFinishThread;
+
+    public void handleDragOver(DragEvent event) {
+        if(!filePathTextField.getStyleClass().contains("onDrag")) {
+            filePathTextField.getStyleClass().add("onDrag");
+        }
+
+        if(event.getDragboard().hasFiles()) {
+            event.acceptTransferModes(TransferMode.ANY);
+        }
+    }
+
+    public void handleDrop(DragEvent event) {
+        List<File> files = event.getDragboard().getFiles();
+        String filePathString = files.get(0).getAbsoluteFile().toString();
+        filePathTextField.setText(filePathString);
+        System.out.println(filePathTextField.getStyleClass().size());
+        filePathTextField.getStyleClass().remove("onDrag");
+        System.out.println(filePathTextField.getStyleClass().size());
+    }
+
+    public void handleDragFinished() {
+        ObservableList styleClasses = filePathTextField.getStyleClass();
+        System.out.println("DragEvent Finished");
+        filePathTextField.getStyleClass().remove("onDrag");
+    }
 
 
     public void analyseTextFileHandler() {
